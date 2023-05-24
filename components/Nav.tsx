@@ -22,7 +22,7 @@ const Nav = () => {
   const fullMenuClasses = "";
   return (
     <nav className= {`text-white bg-black fixed bottom-0 left-0 z-10 flex flex-row justify-between items-center h-16 px-4 rounded-full m-4 ${ showFull ? 'w-[calc(100%-2rem)]' : ''}`}>
-        <button className='' onClick={toggleShowFull}>
+        <button className=' bg-slate-500' onClick={toggleShowFull}>
             <Image src="/assets/menu_hamburger.svg" alt="toggle menu" width={30} height={30}/>
         </button>
 

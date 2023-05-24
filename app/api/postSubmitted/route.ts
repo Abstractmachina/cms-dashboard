@@ -1,17 +1,18 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 
-export const POST = async (req: NextRequest, res: NextResponse) => {
+export const POST = async (req: Request) => {
     // Get data submitted in request's body.
 
-    console.log("tttttttt");
-    if (req.body) {
+        console.log("tttttttt");
+
         const body = await req.json();
         console.log('body: ', body);
 
         // res.json(body);
-        res.json()
-    }
+        return NextResponse.json({response: "post request received"});
+
+    
     
    
     // Optional logging to see the responses

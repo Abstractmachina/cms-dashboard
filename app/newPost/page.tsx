@@ -8,10 +8,10 @@ import { useRouter } from "next/navigation";
 const NewPost = () => {
     const router = useRouter();
 
-    const editorRef = useRef<Editor | null>(null);
+    const editorRef = useRef(null);
     const log = () => {
         if (editorRef.current) {
-        //   console.log(editorRef.current.getContent());
+          console.log(editorRef.current.getContent());
         }
     };
 
@@ -20,13 +20,36 @@ const NewPost = () => {
     const [editorContent, setEditorContent] = useState("");
   
     const onButtonClick = () => {
-      setEditorContent(editor.current.props.value);
+      setEditorContent(editor.current.getContent());
+      console.log("onButtonClick: ", editorContent);
     };
   
     const handleEditorChange = (content) => {
       setEditorContent(content);
+      console.log("onButtonClick: ", editorContent);
+
+      console.log("fasdf")
     };
 
+    const submitPost = async () => {
+        try{
+            const response = await fetch('/api/postSubmitted', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    content: editorContent,
+                }),
+            });
+    
+            const data = await response.json();
+            // console.log(data);
+
+        } catch(err) {
+            console.error(err);
+        }
+    }
 
 
     return (
@@ -47,12 +70,12 @@ const NewPost = () => {
             <Editor
                 tinymceScriptSrc={ '/tinymce/tinymce.min.js'}
                 onInit={(evt, editor) =>  editorRef.current = editor}
-                ref={editorRef}
+                // ref={editorRef}
                 initialValue='<p>This is the initial content of the editor.</p>'
                 value={editorContent}
                 onEditorChange={handleEditorChange}
                 init={{
-                    height: (window.innerHeight - 50),
+                    height: 600,
                     menubar: 'insert',
                     plugins: [
                         'advlist', 'autolink', 'lists', 'link', 'image', 'charmap',
@@ -69,8 +92,8 @@ const NewPost = () => {
                 }}
             />
 
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Save draft</button>
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Preview</button>
+            <button type="button" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={log}>Save draft</button>
+            <button type="button" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={submitPost}>Preview</button>
 
         </form>
     )
