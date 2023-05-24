@@ -28,6 +28,12 @@ const Nav = () => {
 
         {showFull ? (
             <div className='flex flex-grow flex-row items-center justify-between ml-16'>
+                <Link href="/newPost">
+                    <Image src="/assets/plus_slim.svg" width={37} height={37} alt="create new post"/>
+                </Link>
+                <Link href="/">
+                    Home
+                </Link>
                 <Link href="/posts">
                     Posts
                 </Link>
