@@ -3,14 +3,11 @@ import { NextResponse } from "next/server";
 
 export const POST = async (req: Request) => {
     // Get data submitted in request's body.
+    const body = await req.json();
+    console.log('body: ', body);
 
-        console.log("tttttttt");
-
-        const body = await req.json();
-        console.log('body: ', body);
-
-        // res.json(body);
-        return NextResponse.json({response: "post request received"});
+    
+    return NextResponse.json({response: "post request received"});
 
     
     

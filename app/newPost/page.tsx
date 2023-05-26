@@ -18,13 +18,15 @@ const NewPost = () => {
 
     const editor = useRef(null);
     const [editorContent, setEditorContent] = useState("");
+    const [title, setTitle] = useState("");
   
     const onButtonClick = () => {
       setEditorContent(editor.current.getContent());
       console.log("onButtonClick: ", editorContent);
     };
   
-    const handleEditorChange = (content) => {
+    const handleEditorChange = (content:any) => {
+        console.log(typeof content);
       setEditorContent(content);
       console.log("onButtonClick: ", editorContent);
 
@@ -39,6 +41,7 @@ const NewPost = () => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
+                    title,
                     content: editorContent,
                 }),
             });
@@ -65,7 +68,7 @@ const NewPost = () => {
                 <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full">Publish</button>
 
             </div>
-            <input type="text" placeholder="Your Title Here" name="post_title" className="w-full"/>
+            <input type="text" value={title} onChange={(e) => {setTitle(e.target.value)}} placeholder="Your Title Here" name="postTitle" id="postTitle" className="w-full text-black" required/>
             <div>Location</div>
             <Editor
                 tinymceScriptSrc={ '/tinymce/tinymce.min.js'}
