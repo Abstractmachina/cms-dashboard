@@ -20,17 +20,11 @@ const NewPost = () => {
     const [editorContent, setEditorContent] = useState("");
     const [title, setTitle] = useState("");
   
-    const onButtonClick = () => {
-      setEditorContent(editor.current.getContent());
-      console.log("onButtonClick: ", editorContent);
-    };
   
     const handleEditorChange = (content:any) => {
         console.log(typeof content);
       setEditorContent(content);
       console.log("onButtonClick: ", editorContent);
-
-      console.log("fasdf")
     };
 
     const submitPost = async () => {
