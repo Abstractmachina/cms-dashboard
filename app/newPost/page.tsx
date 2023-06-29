@@ -5,6 +5,8 @@ import { useRef, useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+
+
 const NewPost = () => {
     const router = useRouter();
 
@@ -44,6 +46,15 @@ const NewPost = () => {
             // console.log(data);
 
         } catch(err) {
+            console.error(err);
+        }
+    }
+
+    const saveDraft = async () => {
+        try {
+            
+
+        } catch (err) {
             console.error(err);
         }
     }

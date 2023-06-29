@@ -2,12 +2,15 @@ import { NextResponse } from "next/server";
 
 
 export const POST = async (req: Request) => {
+
+  if (req.method == "POST"){
     // Get data submitted in request's body.
     const body = await req.json();
     console.log('body: ', body);
 
-    
     return NextResponse.json({response: "post request received"});
+
+  }
 
     
     

@@ -40,7 +40,12 @@ const Nav = () => {
                 <Link href="/analytics">
                     Analytics
                 </Link>
-                
+                <Link href="/signup">
+                    Sign up
+                </Link>
+                <Link href="/login">
+                    Log in
+                </Link>
                 <Link href="/profile">
                     <Image 
                     src="/assets/user1.svg"
