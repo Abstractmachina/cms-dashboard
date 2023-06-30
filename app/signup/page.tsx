@@ -3,7 +3,9 @@
 import { IUser } from "@/models/user.model";
 import { useState } from "react";
 
-interface IUserForm {
+const server : string = process.env.SERVER || "";
+
+export interface IUserForm {
 	username: string;
 	firstname: string;
 	lastname: string;
@@ -35,18 +37,18 @@ const Signup = () => {
 				isAdmin: false,
 			};
 
-			const response: Response = await fetch("/api/users/create", {
+			const response: Response = await fetch(`${server}/api/users/create`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify({
-					test: "test test",
-					user: testUser,
+					form
 				}),
 			});
-
-			const data = await response.json();
+            console.log("post fetch")
+            console.log(response);
+			// const data = await response.json();
 			// console.log(data);
 		} catch (err) {
 			console.error(err);

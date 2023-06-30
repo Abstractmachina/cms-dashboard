@@ -1,4 +1,5 @@
-import { Schema, model, models} from "mongoose";
+import { Schema, model, models, Model} from "mongoose";
+import createModel from "./createModel";
 
 export interface IUser {
     username: string;
@@ -11,8 +12,14 @@ export interface IUser {
     isAdmin: boolean;
 }
 
+interface IUserMethods {
 
-const userSchema = new Schema<IUser>({
+}
+
+type UserModel = Model<IUser, {}, IUserMethods>;
+
+
+const userSchema = new Schema<IUser, UserModel, IUserMethods>({
     username: {type: String, required: true, unique: true},
     firstname: {type: String, required: true},
     lastname: {type: String, required: true},
@@ -23,6 +30,6 @@ const userSchema = new Schema<IUser>({
     isAdmin: {type: Boolean, required: true},
 });
 
-const User = models.User || model('User', userSchema);
+// const User = models.User || model('User', userSchema);
 
-export default User;
+export default createModel<IUser, UserModel>("User", userSchema);
