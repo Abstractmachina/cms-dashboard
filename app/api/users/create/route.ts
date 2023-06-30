@@ -1,4 +1,4 @@
-import { IUserForm } from "@/app/signup/page";
+import { IUserSignupForm } from "@/app/signup/page";
 import connectDb from "@/lib/connectDb";
 import dbConnect from "@/lib/dbConnect";
 import User from "@/models/user.model";
@@ -8,12 +8,10 @@ export async function POST(req: NextRequest) {
 	console.log("/api/users/create");
 
 	const body = await req.json();
-	const form: IUserForm = body.form;
+	const form: IUserSignupForm = body.form;
 	console.log(body.form.username);
 
 	// await connectDb();
-
-	console.log("test");
 
 	try {
 		await dbConnect();
@@ -26,6 +24,8 @@ export async function POST(req: NextRequest) {
 		// 	joindate: new Date(),
 		// 	isAdmin: false,
 		// });
+
+        // TODO: user validation 
 		const newUser = new User({
 			firstname: form.firstname,
 			lastname: form.lastname,
@@ -37,7 +37,6 @@ export async function POST(req: NextRequest) {
 		});
 
 		console.log(newUser);
-		console.log("sdfasdfafsd");
 
 		await newUser.save();
         console.log("new user saved successfully");
@@ -48,9 +47,9 @@ export async function POST(req: NextRequest) {
 			},
 			{ status: 200 }
 		);
-	} catch (err) {
-        if (process.env.NODE_ENV === "development")
-            console.error(err);
+	} 
+    catch (err) {
+        console.error(err);
         return NextResponse.json({
             success: false
         },

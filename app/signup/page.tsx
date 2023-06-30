@@ -5,7 +5,7 @@ import { useState } from "react";
 
 const server : string = process.env.SERVER || "";
 
-export interface IUserForm {
+export interface IUserSignupForm {
 	username: string;
 	firstname: string;
 	lastname: string;
@@ -15,7 +15,7 @@ export interface IUserForm {
 }
 
 const Signup = () => {
-	const [form, setForm] = useState<IUserForm>({
+	const [form, setForm] = useState<IUserSignupForm>({
 		username: "",
 		firstname: "",
 		lastname: "",
@@ -69,6 +69,7 @@ const Signup = () => {
 	return (
 		<div className="fixed w-full h-full  mx-auto">
 			<form onSubmit={handleSubmit} className="bg-gray-400 flex flex-col mx-5 mt-8 p-10">
+                <h1 className="text-2xl font-bold mb-8">Sign up</h1>
 				<div className="flex flex-row gap-2 justify-between">
                     <div className=" flex-grow">
                         <label 
@@ -153,7 +154,7 @@ const Signup = () => {
                 </div>
 				<button
 					type="submit"
-					className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+					className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-8"
 				>
 					Sign up
 				</button>
