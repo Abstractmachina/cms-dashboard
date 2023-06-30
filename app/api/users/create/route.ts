@@ -13,38 +13,47 @@ export async function POST(req: NextRequest) {
 
 	// await connectDb();
 
-    console.log("test");
+	console.log("test");
 
-    await dbConnect();
-	const newUser = new User({
-		username: "a",
-		firstname: "a",
-		lastname: "a",
-		email: "a",
-		hash: "a",
-		joindate: new Date(),
-		isAdmin: false,
-	});
+	try {
+		await dbConnect();
+		// const newUser = new User({
+		// 	username: "a",
+		// 	firstname: "a",
+		// 	lastname: "a",
+		// 	email: "a",
+		// 	hash: "a",
+		// 	joindate: new Date(),
+		// 	isAdmin: false,
+		// });
+		const newUser = new User({
+			firstname: form.firstname,
+			lastname: form.lastname,
+			username: form.username,
+			email: form.email,
+			hash: form.password,
+			joindate: new Date(),
+			isAdmin: false,
+		});
 
-    console.log(newUser);
-    console.log("sdfasdfafsd");
+		console.log(newUser);
+		console.log("sdfasdfafsd");
 
-    return NextResponse.json({
-        success: true,
-    }, {status:200});
+		await newUser.save();
+        console.log("new user saved successfully");
 
-	// const newUser = new User({
-	//     firstname: form.firstname,
-	//     lastname: form.lastname,
-	//     username: form.username,
-	//     email: form.email,
-	//     hash: form.password,
-	//     joindate: new Date(),
-	//     isAdmin: false
-	// });
-
-	// console.log(newUser);
-
-	// res.status(200).json({ name: 'John Doe' })
-	// res.json();
+		return NextResponse.json(
+			{
+				success: true,
+			},
+			{ status: 200 }
+		);
+	} catch (err) {
+        if (process.env.NODE_ENV === "development")
+            console.error(err);
+        return NextResponse.json({
+            success: false
+        },
+        {status: 500 });
+    }
 }
