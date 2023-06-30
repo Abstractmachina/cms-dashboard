@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 
-
+const server = process.env.SERVER || "";
 
 export interface IUserLoginForm {
 	email: string;
@@ -19,12 +19,37 @@ function Login() {
 	});
 
 
-    const handleChange = async () => {
+    const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        const name = e.target.name;
 
+        setForm({
+            ...form,
+            [name]: value
+        });
     }
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        console.log(form);
+        try{
+            const response: Response = await fetch(`${server}/api/users/login`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    form
+                }),
+            });
+            console.log("post fetch");
+            console.log(response);
+			const data = await response.json();
+            console.log(data);
 
+        } catch (err) {
+            console.error(err);
+        }
     }
 
 
@@ -59,11 +84,9 @@ function Login() {
                     />
                 </div>
 				
-				<button
-					type="submit"
-					className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-8"
-				>
-					Login
+				<button type="submit"
+					className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-8">
+					    Login
 				</button>
 			</form>
 		</div>
