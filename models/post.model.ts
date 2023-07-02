@@ -5,9 +5,12 @@ export interface IPost {
     author: Types.ObjectId,
     published: boolean,
     title: string,
-    body: string,
+    content: string,
+    category: string,
     lastEdited: Date,
-    tags: [string]
+    publishedDate?: Date,
+    tags: [string],
+    location?: string
 
 }
 
@@ -21,10 +24,13 @@ type PostModel = Model<IPost, {}, IPostMethods>;
 const postSchema = new Schema<IPost, PostModel, IPostMethods>({
     author: {type: Schema.Types.ObjectId, ref: 'User', required: true},
     published: {type: Boolean, required: true},
+    publishedDate: {type: Date},
     title: {type: String, required: true},
-    body: {type: String, required: true},
+    content: {type: String, required: true},
     lastEdited: {type: Date, required: true},
-    tags: {type: [String]}
+    tags: {type: [String]},
+    category: {type: String, required: true},
+    location: {type: String},
 });
 
 

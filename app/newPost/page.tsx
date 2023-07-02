@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useRef, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -9,8 +9,8 @@ import { useRouter } from "next/navigation";
 
 const NewPost = () => {
     const router = useRouter();
-
     const editorRef = useRef(null);
+    
     const log = () => {
         if (editorRef.current) {
           console.log(editorRef.current.getContent());
@@ -24,14 +24,15 @@ const NewPost = () => {
   
   
     const handleEditorChange = (content:any) => {
-        console.log(typeof content);
       setEditorContent(content);
       console.log("onButtonClick: ", editorContent);
     };
 
-    const submitPost = async () => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
         try{
-            const response = await fetch('/api/postSubmitted', {
+            const response = await fetch('/api/posts', {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
@@ -39,6 +40,10 @@ const NewPost = () => {
                 body: JSON.stringify({
                     title,
                     content: editorContent,
+                    author: "test",
+                    category: "test",
+                    tags: ["tagA", "tagB"],
+                    location: "Here"
                 }),
             });
     
@@ -50,9 +55,18 @@ const NewPost = () => {
         }
     }
 
-    const saveDraft = async () => {
+    const handleSaveDraft = async () => {
         try {
-            
+            const response = await fetch('/api/posts', {
+                method: "PUT",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    title,
+                    content: editorContent,
+                }),
+            });
 
         } catch (err) {
             console.error(err);
@@ -61,7 +75,7 @@ const NewPost = () => {
 
 
     return (
-        <form action="/api/postSubmitted" method="post">
+        <form action="/api/postSubmitted" method="post" onSubmit={handleSubmit}>
             <div className="flex flex-row justify-between items-center">
                 <Link href='' onClick={() => router.back()}>
                     Back
@@ -100,8 +114,8 @@ const NewPost = () => {
                 }}
             />
 
-            <button type="button" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={log}>Save draft</button>
-            <button type="button" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={submitPost}>Preview</button>
+            <button type="button" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={handleSaveDraft}>Save draft</button>
+            <button type="button" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={log}>Preview</button>
 
         </form>
     )
