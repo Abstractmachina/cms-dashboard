@@ -12,7 +12,18 @@ import User from '@/models/user.model';
  * @returns 
  */
 export const GET = async (req: NextRequest)  => {
+    console.log("GET /api/posts");
 
+    try {
+        const posts = await Post.find();
+        console.log(posts);
+        return NextResponse.json(
+            {success: true, posts}, {status: 200}
+            );
+    } catch (err) {
+        console.error(err);
+        return NextResponse.json({success: false}, {status: 500});
+    }
 }
 
 

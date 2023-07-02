@@ -9,7 +9,7 @@ export interface IPost {
     category: string,
     lastEdited: Date,
     publishedDate?: Date,
-    tags: [string],
+    tags: Array<string>,
     location?: string
 
 }
