@@ -37,7 +37,7 @@ const Signup = () => {
 				isAdmin: false,
 			};
 
-			const response: Response = await fetch(`${server}/api/users/create`, {
+			const response: Response = await fetch(`${server}/api/users`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",

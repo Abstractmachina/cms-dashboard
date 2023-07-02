@@ -4,14 +4,26 @@ import dbConnect from "@/lib/dbConnect";
 import User from "@/models/user.model";
 import { NextRequest, NextResponse } from "next/server";
 
+
+/**
+ * Get all users
+ * @param req 
+ */
+export async function GET(req: NextRequest) {
+ throw new Error("Function not implemented");
+}
+
+/**
+ * Add user to db
+ * @param req 
+ * @returns 
+ */
 export async function POST(req: NextRequest) {
-	console.log("/api/users/create");
+	console.log("HTTP POST /api/users");
 
 	const body = await req.json();
 	const form: IUserSignupForm = body.form;
 	console.log(body.form.username);
-
-	// await connectDb();
 
 	try {
 		await dbConnect();
