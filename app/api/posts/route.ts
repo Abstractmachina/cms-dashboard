@@ -13,7 +13,8 @@ import dbConnect from "@/lib/dbConnect";
  * @returns 
  */
 export const GET = async (req: NextRequest)  => {
-    console.log("GET /api/posts");
+
+    console.log("GET /api/posts/");
 
     try {
         await dbConnect();

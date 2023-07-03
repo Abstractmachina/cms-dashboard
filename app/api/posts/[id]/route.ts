@@ -12,17 +12,21 @@ import dbConnect from "@/lib/dbConnect";
  * @param req 
  * @returns 
  */
-export const GET = async (req: NextRequest)  => {
-    console.log("GET /api/posts");
-
+export const GET = async (req: NextRequest, {params} : {params:{id:string}})  => {
+    console.log(`GET /api/posts/${params.id}`);
+    
     try {
         await dbConnect();
-        const posts = await Post.find();
+        const post = await Post.findById(params.id);
+        if (!post) {
+            return NextResponse.json({success: false, message: "Post does not exist.", post: null}, {status: 400});
+        }
+
         return NextResponse.json(
-            {success: true, posts}, {status: 200}
+            {success: true, post}, {status: 200}
             );
     } catch (err) {
         console.error(err);
-        return NextResponse.json({success: false}, {status: 500});
+        return NextResponse.json({success: false, post: null}, {status: 500});
     }
 }
