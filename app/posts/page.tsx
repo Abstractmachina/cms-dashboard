@@ -1,6 +1,6 @@
 'use client';
 
-import { IPost } from "@/models/post.model";
+import { IPost } from "@/types/IPost";
 import PostList from "@/components/PostList";
 import { useCallback, useEffect, useState } from "react";
 import Convert from "@/lib/convert";
@@ -15,8 +15,8 @@ const Posts = () => {
         const fetchData = async () => {
             try {
                 const data = await fetchPosts();
-                const posts = data.map(el => Convert.toPost(el));
-                setPosts(data);
+                const newPosts = data.map((el:any) => Convert.toPost(el));
+                setPosts(newPosts);
                 console.log(posts);
 
             } catch (err) {
@@ -36,8 +36,6 @@ const Posts = () => {
         const response = await fetch('api/posts',
         {
             method: "GET",
-            cache: "force-cache",
-            next: {revalidate: 60},
             headers: {
                 "Content-Type": "application/json",
             }
@@ -45,7 +43,6 @@ const Posts = () => {
         // const response = await fetch('/api/posts');
 
         const data = await response.json();
-        console.log(data);
 
         if (response.status == 200) {
             return data["posts"];
@@ -59,9 +56,9 @@ const Posts = () => {
 
   return (
     <main id="page_posts">
-        Posts
+        <h1>Posts</h1>
 
-        <button onClick={fetchPosts}>test fetching</button>
+        <button onClick={fetchPosts} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-8">Refetch posts</button>
         <PostList posts={posts}/>
     </main>
   )

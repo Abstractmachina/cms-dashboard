@@ -1,11 +1,11 @@
-import { IPost } from "@/models/post.model";
+import { IPost } from "@/types/IPost";
 import mongoose, { Types } from "mongoose";
 // import {ObjectId} from 'mongodb';
 
 export default class Convert {
     public static toPost(json:any) : IPost | null {
         
-        // validation
+        // TODO: validation
         if (!json["author"] || !json["published"] || !json["title"] || !json["content"] || !json["category"] || !json["lastEdited"] || !json["tags"]) {
             throw new Error("Invalid JSON");
         }
@@ -28,6 +28,7 @@ export default class Convert {
             tags: json["tags"],
             location,
             publishedDate,
+            id: json["_id"],
         } 
 
         return result;

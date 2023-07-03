@@ -1,22 +1,8 @@
-import mongoose, { Schema, Model, Types } from "mongoose";
+import mongoose, { Schema, Model } from "mongoose";
 import createModel from "./createModel";
+import { IPost, IPostMethods } from "../types/IPost";
 
-export interface IPost {
-    author: Types.ObjectId,
-    published: boolean,
-    title: string,
-    content: string,
-    category: string,
-    lastEdited: Date,
-    publishedDate?: Date,
-    tags: Array<string>,
-    location?: string
 
-}
-
-interface IPostMethods {
-
-}
 
 type PostModel = Model<IPost, {}, IPostMethods>;
 

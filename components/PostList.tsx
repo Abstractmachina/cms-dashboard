@@ -1,5 +1,6 @@
-import { IPost } from '@/models/post.model'
+import { IPost } from "@/types/IPost";
 import React, { FC, PropsWithChildren } from 'react'
+import PostInfoCard from "./PostInfoCard";
 
 
 type IPostListProps = {
@@ -7,11 +8,15 @@ type IPostListProps = {
 };
 
 const PostList = ( {posts} : IPostListProps) => {
+    let count =0;
 
+    console.log(posts);
     
     const listItems = (!posts) ? <li>No posts found</li> :
             posts.map(post => 
-                <li>{post.title}</li>)
+                <li className="py-1 px-6" key= {count++}>
+                    <PostInfoCard post={post}/>
+                </li>)
 
 
   return (
