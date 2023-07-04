@@ -27,7 +27,7 @@ const Nav = () => {
         </button>
 
         {showFull ? (
-            <div className='flex flex-grow flex-row items-center justify-between ml-16'>
+            <div className='flex flex-grow flex-row items-center justify-between ml-4'>
                 <Link href="/newPost">
                     <Image src="/assets/plus_slim.svg" width={37} height={37} alt="create new post"/>
                 </Link>
@@ -37,8 +37,8 @@ const Nav = () => {
                 <Link href="/posts">
                     Posts
                 </Link>
-                <Link href="/analytics">
-                    Analytics
+                <Link href="/files">
+                    Files
                 </Link>
                 <Link href="/signup">
                     Sign up

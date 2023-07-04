@@ -1,5 +1,4 @@
 import { IUserSignupForm } from "@/app/signup/page";
-import connectDb from "@/lib/connectDb";
 import dbConnect from "@/lib/dbConnect";
 import User from "@/models/user.model";
 import { NextRequest, NextResponse } from "next/server";

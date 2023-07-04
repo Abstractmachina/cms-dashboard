@@ -73,6 +73,13 @@ const NewPost = () => {
         }
     }
 
+    const handleimageUpload = async (blobInfo:any, progress:any) : Promise<string> =>  {
+        console.log("image upload path")
+
+        return new Promise<string>((resolve) => {
+            resolve("test");
+        });
+    }
 
     return (
         <form action="/api/postSubmitted" method="post" onSubmit={handleSubmit}>
@@ -111,6 +118,9 @@ const NewPost = () => {
                     content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
                     promotion: false,
                     branding: false,
+                    images_upload_handler: handleimageUpload,
+                    // images_upload_url: "/api/files/images/new",
+                    automatic_uploads: true
                 }}
             />
 

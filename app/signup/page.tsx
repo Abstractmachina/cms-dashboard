@@ -1,6 +1,6 @@
 "use client";
 
-import { IUser } from "@/models/user.model";
+import { IUser } from "@/types/IUser";
 import { useState } from "react";
 
 const server : string = process.env.SERVER || "";
