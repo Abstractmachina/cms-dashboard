@@ -1,20 +1,7 @@
 import { Schema, model, models, Model} from "mongoose";
 import createModel from "./createModel";
+import { IUser, IUserMethods } from "../types/IUser";
 
-export interface IUser {
-    username: string;
-    firstname: string;
-    lastname: string;
-    email: string;
-    hash: string;
-    avatar?: string;
-    joindate: Date;
-    isAdmin: boolean;
-}
-
-interface IUserMethods {
-
-}
 
 type UserModel = Model<IUser, {}, IUserMethods>;
 
